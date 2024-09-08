@@ -20,15 +20,6 @@ class BlogsController extends Controller
     return view("welcome", compact("posts"));
   }
 
-  // public function sideshow($id)
-  // {
-  //   $posts = DB::table('posts')
-  //     ->join('users', 'posts.user_id', '=', 'users.id')
-  //     ->select('users.name', 'posts.id', 'posts.title', 'posts.body')
-  //     ->where('posts.id', '<>', $id)
-  //     ->get();
-  //   return view("blog", compact("posts"));
-  // }
 
   /**
    * Show the form for creating a new resource.
