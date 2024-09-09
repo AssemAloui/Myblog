@@ -42,16 +42,26 @@ class BlogsController extends Controller
    */
   public function show($id)
   {
-    $singlepost = DB::table('posts')
-      ->join('users', 'posts.user_id', '=', 'users.id')
-      ->select('users.name', 'posts.title', 'posts.body', 'posts.created_at')
-      ->where('posts.id', '=', $id)
-      ->first();
+    // // $singlepost = Post::findOrFail();
+    // $singlepost = DB::table('posts')
+    //   ->join('users', 'posts.user_id', '=', 'users.id')
+    //   ->select('users.name', 'posts.title', 'posts.body', 'posts.created_at')
+    //   ->where('posts.id', '=', $id)
+    //   ->first();
 
-    $posts = DB::table('posts')
-      ->join('users', 'posts.user_id', '=', 'users.id')
-      ->select('users.name', 'posts.id', 'posts.title', 'posts.body', 'posts.created_at')
-      ->where('posts.id', '<>', $id)
+    // $posts = DB::table('posts')
+    //   ->join('users', 'posts.user_id', '=', 'users.id')
+    //   ->select('users.name', 'posts.id', 'posts.title', 'posts.body', 'posts.created_at')
+    //   ->where('posts.id', '<>', $id)
+    //   ->get();
+    // Fetch the main post
+    $singlepost = Post::where('id', $id)
+      ->firstOrFail();
+
+
+    // Fetch other posts by the same user, excluding the main post
+    $posts = Post::where('id', '!=', $id)
+      ->with('user')
       ->get();
 
     return view("blog", compact("posts", "singlepost"));
