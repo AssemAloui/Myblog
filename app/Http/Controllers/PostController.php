@@ -15,9 +15,8 @@ class PostController extends Controller
    */
   public function index($user_id)
   {
-    $posts = DB::table('posts')
-      ->select('id', 'title', 'body')
-      ->where('user_id', '=', $user_id)
+    $posts = Post::select('id', 'title', 'body')
+      ->where('user_id', $user_id)
       ->get();
     return view("posts", compact("posts"));
   }
